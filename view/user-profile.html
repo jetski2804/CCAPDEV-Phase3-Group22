@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - CampusTaste Reviews</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-utensils"></i> CampusTaste</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="establishments.html">Browse</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li>
+                    <a href="profile.html" class="nav-profile" style="display: none;">
+                        <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="Profile">
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li><a href="#" onclick="logout()" style="color: #dc2626; display: none;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container profile-container">
+        <aside class="profile-sidebar">
+            <div class="profile-card">
+                <div class="profile-avatar-container">
+                    <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="User" class="profile-avatar">
+                </div>
+                <h1 class="profile-name">User Name</h1>
+                <p class="profile-handle">@username</p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item"><strong id="review-count">0</strong><span>Reviews</span></div>
+                    <div class="stat-item"><strong id="helpful-count">0</strong><span>Helpfuls</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="profile-content">
+            <div class="content-header">
+                <h2>Recent Reviews</h2>
+            </div>
+
+            <div style="text-align: center; color: #999; padding: 40px 20px;">
+                <p>Loading reviews...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="scripts.js"></script>
+    <script>
+        async function loadUserProfile() {
+            const params = new URLSearchParams(window.location.search);
+            const userId = params.get('id');
+
+            if (!userId) {
+                document.querySelector('.profile-content').innerHTML = 
+                    '<p style="text-align:center;color:red;">User not found</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/users/${userId}`);
+                if (!response.ok) {
+                    document.querySelector('.profile-content').innerHTML = 
+                        '<p style="text-align:center;color:red;">User not found</p>';
+                    return;
+                }
+
+                const user = await response.json();
+                
+                // Update profile header
+                document.querySelector('.profile-avatar').src = user.avatar || 
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=059669&color=fff`;
+                document.querySelector('.profile-name').textContent = user.name;
+                document.querySelector('.profile-handle').textContent = '@' + user.name.replace(/\s+/g, '_').toLowerCase();
+                document.title = `${user.name} - CampusTaste Reviews`;
+
+                // Load user reviews
+                const postsResponse = await fetch(`/api/posts/user/${userId}`);
+                const posts = await postsResponse.json();
+
+                const reviewCountEl = document.getElementById('review-count');
+                if (reviewCountEl) reviewCountEl.textContent = posts.length;
+
+                let totalHelpful = 0;
+                posts.forEach(post => totalHelpful += post.helpfulCount || 0);
+                const helpfulCountEl = document.getElementById('helpful-count');
+                if (helpfulCountEl) helpfulCountEl.textContent = totalHelpful;
+
+                const reviewsContainer = document.querySelector('.profile-content');
+                reviewsContainer.innerHTML = '<div class="content-header"><h2>Reviews</h2></div>';
+
+                if (posts.length === 0) {
+                    reviewsContainer.querySelector('.content-header').insertAdjacentHTML('afterend',
+                        '<p style="text-align:center;color:#999;padding:20px;">This user hasn\'t written any reviews yet.</p>');
+                    return;
+                }
+
+                posts.forEach(post => {
+                    const date = new Date(post.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'short', day: 'numeric'
+                    });
+                    const spotEntry = Object.entries(SPOTS_DATA).find(([, s]) => s.name === post.establishmentName);
+                    const spotLink = spotEntry ? `spot.html?id=${spotEntry[0]}` : '#';
+
+                    const card = document.createElement('article');
+                    card.className = 'history-card';
+                    card.innerHTML = `
+                        <div class="history-header">
+                            <h3>${post.title}</h3>
+                            <span class="history-stars">${'★'.repeat(post.rating)}${'☆'.repeat(5 - post.rating)}</span>
+                        </div>
+                        <p class="history-text">"${post.content}"</p>
+                        <p style="color:#666;font-size:0.9em;margin:8px 0;">
+                            Establishment: <a href="${spotLink}" style="color:#059669;font-weight:600;">${post.establishmentName}</a>
+                        </p>
+                        <div class="history-footer">
+                            <span>${date}</span>
+                            <div style="color:#6b7280; font-size: 0.85rem;">
+                                <i class="fas fa-thumbs-up"></i> ${post.helpfulCount || 0} helpful
+                            </div>
+                        </div>
+                    `;
+                    reviewsContainer.appendChild(card);
+                });
+
+            } catch (err) {
+                console.error('Error loading user profile:', err);
+                document.querySelector('.profile-content').innerHTML = 
+                    '<p style="text-align:center;color:red;">Error loading profile. Please try again.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+            loadUserProfile();
+        });
+    </script>
+</body>
+</html>

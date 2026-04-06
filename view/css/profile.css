@@ -1,0 +1,132 @@
+/* Profile Page Specific Styles */
+.profile-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* Profile Card Sidebar */
+.profile-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+}
+
+.profile-avatar-container {
+    position: relative;
+    width: 120px;
+    margin: 0 auto 20px;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #f3f4f6;
+}
+
+.edit-avatar-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #059669;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.profile-handle {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.profile-bio {
+    font-size: 0.95rem;
+    color: #4b5563;
+    margin-bottom: 25px;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 1.2rem;
+}
+
+.stat-item span {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.btn-edit-profile {
+    width: 100%;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* History Cards */
+.history-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.history-stars {
+    color: #fbbf24;
+}
+
+.history-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.history-actions a {
+    margin-left: 15px;
+    font-weight: 600;
+}
+
+.edit-link { color: #059669; }
+.delete-link { color: #ef4444; }
+
+/* Modal Styles */
+.modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+.modal-content { background: white; margin: 10% auto; padding: 30px; width: 450px; border-radius: 12px; }
+.edit-form label { display: block; margin-top: 15px; font-weight: 600; }
+.edit-form input, .edit-form textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 6px; }
+.btn-save { width: 100%; background: #059669; color: white; padding: 12px; border: none; border-radius: 8px; margin-top: 20px; font-weight: 700; }

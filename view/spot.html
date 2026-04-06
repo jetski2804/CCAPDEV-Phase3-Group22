@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Spot - CampusTaste Reviews</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/establishment.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-utensils"></i> CampusTaste</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="establishments.html">Browse</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li>
+                    <a href="profile.html" class="nav-profile" style="display: none;">
+                        <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="Profile">
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li style="display: none;"><a href="#" onclick="logout()" style="color: #dc2626;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="est-header">
+        <div class="container est-flex">
+            <div class="est-info">
+                <nav class="breadcrumb">
+                    <a href="index.html">Home</a> / 
+                    <a href="establishments.html">Establishments</a> / 
+                    <span id="breadcrumb-name">Loading...</span>
+                </nav>
+                <h1 id="spot-name">Loading...</h1>
+                <div class="est-stats">
+                    <span class="rating-large" id="spot-rating">— ★</span>
+                    <span class="review-count" id="spot-review-count"></span>
+                </div>
+                <p class="est-desc" id="spot-desc"></p>
+                <div class="est-tags">
+                    <span id="spot-address"><i class="fas fa-map-marker-alt"></i> —</span>
+                    <span id="spot-hours"><i class="fas fa-clock"></i> —</span>
+                    <span id="spot-tag"><i class="fas fa-wallet"></i> —</span>
+                </div>
+            </div>
+            <div class="est-actions">
+                <button class="btn-primary" id="openReviewModal" style="display: none;"><i class="fas fa-pen"></i> Write a Review</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container est-main">
+        <section class="reviews-section">
+            <div class="section-header">
+                <h2>Student Reviews</h2>
+                <div class="filters">
+                    <label for="sort-select" class="sort-label">Sort by:</label>
+                    <div class="select-wrapper">
+                        <select id="sort-select">
+                            <option value="newest">Newest First</option>
+                            <option value="highest">Highest Rated</option>
+                            <option value="helpful">Most Helpful</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reviews-container">
+                <p style="text-align: center; color: #999; padding: 40px;">Loading reviews...</p>
+            </div>
+        </section>
+
+        <aside class="est-sidebar">
+            <div class="sidebar-box">
+                <h3>Location</h3>
+                <img src="https://placehold.co/300x200?text=Map+Location" alt="Map" class="map-placeholder" id="spot-map">
+                <p id="spot-location-desc">Located near DLSU Taft campus.</p>
+            </div>
+        </aside>
+    </main>
+
+    <div id="reviewModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Review</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form class="review-form">
+                <label for="rev-establishment">Establishment</label>
+                <input type="text" id="rev-establishment" readonly required>
+
+                <label>Overall Rating</label>
+                <div class="rating-input">
+                    <input type="radio" name="star" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="star" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="star" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="star" id="star1" value="1"><label for="star1">★</label>
+                </div>
+                
+                <label for="rev-title">Review Title</label>
+                <input type="text" id="rev-title" placeholder="Summarize your experience" required>
+
+                <label for="rev-body">Your Review</label>
+                <textarea id="rev-body" rows="5" placeholder="What did you eat? How was the service?" required></textarea>
+
+                <button type="submit" class="btn-submit">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse All Spots - CampusTaste Reviews</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .browse-hero {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            padding: 48px 0 32px;
+            color: white;
+            text-align: center;
+        }
+        .browse-hero h1 { font-size: 2rem; margin-bottom: 8px; }
+        .browse-hero p { opacity: 0.85; font-size: 1.05rem; }
+        .browse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            padding: 40px 0;
+        }
+        .browse-filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 0 0;
+            flex-wrap: wrap;
+        }
+        .browse-filter-bar input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .spot-count {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        .browse-filter-bar .btn-primary {
+            white-space: nowrap;
+            padding: 12px 24px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-utensils"></i> CampusTaste</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="establishments.html" class="active">Browse</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li>
+                    <a href="profile.html" class="nav-profile" style="display: none;">
+                        <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="Profile">
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li style="display: none;"><a href="#" onclick="logout()" style="color: #dc2626;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="browse-hero">
+        <div class="container">
+            <h1>All Dining Spots</h1>
+            <p>Discover every food spot near DLSU Taft, rated by students like you.</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 0 0;">
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; flex: 1;">
+                <input type="text" id="browse-search" placeholder="Search spots..." oninput="filterSpots()" style="flex: 1; min-width: 200px; padding: 10px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.95rem;">
+                <span class="spot-count" id="spot-count" style="color: #6b7280; font-size: 0.9rem; white-space: nowrap;"></span>
+            </div>
+        </div>
+
+        <div class="browse-grid" id="browse-grid">
+            <!-- Cards injected by JS -->
+        </div>
+    </main>
+
+    <div id="reviewModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Review</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form class="review-form">
+                <label for="rev-establishment">Establishment</label>
+                <input type="text" id="rev-establishment" required>
+
+                <label>Overall Rating</label>
+                <div class="rating-input">
+                    <input type="radio" name="star" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="star" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="star" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="star" id="star1" value="1"><label for="star1">★</label>
+                </div>
+                
+                <label for="rev-title">Review Title</label>
+                <input type="text" id="rev-title" placeholder="Summarize your experience" required>
+
+                <label for="rev-body">Your Review</label>
+                <textarea id="rev-body" rows="5" placeholder="What did you eat? How was the service?" required></textarea>
+
+                <button type="submit" class="btn-submit">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+        function renderBrowsePage() {
+            const grid = document.getElementById('browse-grid');
+            const countEl = document.getElementById('spot-count');
+            const spots = Object.entries(SPOTS_DATA);
+            countEl.textContent = `${spots.length} spots found`;
+
+            grid.innerHTML = spots.map(([id, spot]) => `
+                <article class="card" data-name="${spot.name.toLowerCase()}">
+                    <div class="card-image">
+                        <img src="${spot.image}" alt="${spot.name}" onerror="this.src='https://placehold.co/400x250?text=${encodeURIComponent(spot.name)}'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title-row">
+                            <h3>${spot.name}</h3>
+                            <span class="rating">${spot.rating} ★</span>
+                        </div>
+                        <p class="card-text">${spot.desc}</p>
+                        <div class="card-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> ${spot.address}</span>
+                        </div>
+                        <a href="spot.html?id=${id}" class="btn-block">Read Reviews</a>
+                    </div>
+                </article>
+            `).join('');
+            
+            // Update ratings with actual database averages
+            updateCardRatings();
+        }
+
+        function filterSpots() {
+            const query = document.getElementById('browse-search').value.toLowerCase();
+            const cards = document.querySelectorAll('#browse-grid .card');
+            let visible = 0;
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                if (name.includes(query)) {
+                    card.style.display = 'block';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            document.getElementById('spot-count').textContent = `${visible} spot${visible !== 1 ? 's' : ''} found`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+            renderBrowsePage();
+        });
+    </script>
+</body>
+</html>

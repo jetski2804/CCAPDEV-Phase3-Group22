@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - CampusTaste Reviews</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-utensils"></i> CampusTaste</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="establishments.html">Browse</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li>
+                    <a href="profile.html" class="nav-profile active">
+                        <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="Profile">
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li style="display: none;"><a href="#" onclick="logout()" style="color: #dc2626;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container profile-container">
+        <aside class="profile-sidebar">
+            <div class="profile-card">
+                <div class="profile-avatar-container">
+                    <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="User" class="profile-avatar">
+                    <button class="edit-avatar-btn"><i class="fas fa-camera"></i></button>
+                </div>
+                <h1 class="profile-name">User Name</h1>
+                <p class="profile-handle">@username</p>
+                <p class="profile-bio">Loading profile...</p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item"><strong id="review-count">0</strong><span>Reviews</span></div>
+                    <div class="stat-item"><strong id="helpful-count">0</strong><span>Helpfuls</span></div>
+                </div>
+
+                <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
+            </div>
+        </aside>
+
+        <section class="profile-content">
+            <div class="content-header">
+                <h2>My Recent Reviews</h2>
+            </div>
+
+            <div style="text-align: center; color: #999; padding: 40px 20px;">
+                <p>Loading your reviews...</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form class="edit-form">
+                <label>Display Name</label>
+                <input type="text" value="Miguel Jethro G. Castro">
+                
+                <label>Short Description (Bio)</label>
+                <textarea rows="4">BS Information Systems student at DLSU. Food enthusiast and frequent Agno diner.</textarea>
+                
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+    </div>
+<script>
+    // Check if user is logged in
+    document.addEventListener('DOMContentLoaded', function() {
+        const userSession = localStorage.getItem('currentUser');
+        if (!userSession) {
+            alert('Please log in first');
+            window.location.href = 'login.html';
+        } else {
+            const user = JSON.parse(userSession);
+            // Update profile info
+            document.querySelector('.profile-avatar').src = user.avatar;
+            document.querySelector('.profile-avatar-container').querySelector('img').alt = user.userName;
+            document.querySelector('.profile-name').textContent = user.userName;
+            document.querySelector('.profile-handle').textContent = '@' + user.userName.replace(/\s+/g, '_').toLowerCase();
+            
+            // Update navbar profile image
+            const navProfileImg = document.querySelector('.nav-profile img');
+            if (navProfileImg) {
+                navProfileImg.src = user.avatar;
+            }
+        }
+    });
+</script>
+<script src="scripts.js"></script>
+<script>
+    // Load user posts when page loads - this will be called after scripts.js is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        const userSession = localStorage.getItem('currentUser');
+        if (userSession) {
+            loadUserPosts();
+        }
+    });
+</script>
+
+</body>
+</html>

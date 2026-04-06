@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register - CampusTaste Reviews</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="auth-body">
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-utensils"></i> CampusTaste</a>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </nav>
+
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="toggleAuth('login')">Login</button>
+                <button class="tab-btn" onclick="toggleAuth('register')">Register</button>
+            </div>
+
+            <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtitle">Login to start reviewing your favorite spots.</p>
+                <div id="loginMessage" class="message"></div>
+                
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="e.g. miguel_castro@dlsu.edu.ph" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-options">
+                    <label><input type="checkbox"> Remember me</label>
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-auth">Login</button>
+            </form>
+
+            <form id="registerForm" class="auth-form hidden" onsubmit="handleRegister(event)">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Join the community of DLSU student reviewers.</p>
+                <div id="registerMessage" class="message"></div>
+                
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" placeholder="Miguel Jethro G. Castro" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" placeholder="yourname@dlsu.edu.ph" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" placeholder="Min. 8 characters" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-confirm-password">Confirm Password</label>
+                    <input type="password" id="reg-confirm-password" placeholder="Re-type your password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-avatar">Profile Avatar (Optional)</label>
+                    <input type="file" id="reg-avatar" class="file-input">
+                </div>
+
+                <button type="submit" class="btn-auth">Create Account</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        function toggleAuth(type) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.tab-btn');
+
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                tabs[0].classList.remove('active');
+                tabs[1].classList.add('active');
+            }
+        }
+    </script>
+<script src="scripts.js"></script>
+
+</body>
+</html>

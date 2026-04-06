@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CampusTaste Reviews</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            padding: 60px 0 40px;
+            color: white;
+            text-align: center;
+        }
+        .about-hero h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        .about-hero p { opacity: 0.9; font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+        .about-section { padding: 48px 0; }
+        .about-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .team-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 28px 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .team-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 14px;
+            border: 3px solid #059669;
+        }
+        .team-card h3 { font-size: 1rem; font-weight: 700; color: #1f2937; margin-bottom: 4px; }
+        .team-card p { font-size: 0.85rem; color: #6b7280; }
+
+        .packages-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .packages-table th {
+            background: #f9fafb;
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 700;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 0.9rem;
+        }
+        .packages-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f3f4f6;
+            color: #374151;
+            font-size: 0.9rem;
+            vertical-align: top;
+        }
+        .packages-table tr:last-child td { border-bottom: none; }
+        .packages-table tr:hover td { background: #f9fafb; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-backend { background: #dbeafe; color: #1d4ed8; }
+        .badge-frontend { background: #dcfce7; color: #166534; }
+        .badge-db { background: #fef3c7; color: #92400e; }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #059669;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .feature-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 18px 20px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .feature-item i { color: #059669; font-size: 1.2rem; margin-top: 2px; flex-shrink: 0; }
+        .feature-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; color: #1f2937; }
+        .feature-item p { font-size: 0.85rem; color: #6b7280; margin: 0; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-utensils"></i> CampusTaste</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="establishments.html">Browse</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="login.html">Login/Register</a></li>
+                <li>
+                    <a href="profile.html" class="nav-profile" style="display: none;">
+                        <img src="https://ui-avatars.com/api/?name=User&background=059669&color=fff" alt="Profile">
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li style="display: none;"><a href="#" onclick="logout()" style="color: #dc2626;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="about-hero">
+        <div class="container">
+            <h1><i class="fas fa-utensils"></i> CampusTaste Reviews</h1>
+            <p>A student-built food review platform for DLSU Taft. Find the best eats, share your experience, and help fellow Lasallians eat better.</p>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <!-- Team Section -->
+        <section class="about-section">
+            <h2><i class="fas fa-users" style="color:#059669;margin-right:8px;"></i>Meet the Team</h2>
+            <p style="color:#6b7280;">Group #22 — CCAPDEV T1 AY2023–2024</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Elijah+Lobitana&background=059669&color=fff" alt="Elijah">
+                    <h3>Elijah Joseph E. Lobitaña</h3>
+                    <p>Lead Developer</p>
+                </div>
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Miguel+Castro&background=047857&color=fff" alt="Miguel">
+                    <h3>Miguel Jethro G. Castro</h3>
+                    <p>Front-End Developer</p>
+                </div>
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Charlz+Gonzales&background=065f46&color=fff" alt="Charlz">
+                    <h3>Charlz Jefferson C. Gonzales</h3>
+                    <p>Back-End Developer</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="about-section" style="padding-top: 0;">
+            <h2><i class="fas fa-star" style="color:#059669;margin-right:8px;"></i>Features</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <i class="fas fa-pen-to-square"></i>
+                    <div>
+                        <h4>Write Reviews</h4>
+                        <p>Submit star ratings and detailed reviews for any dining spot near DLSU.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-user-lock"></i>
+                    <div>
+                        <h4>Secure Authentication</h4>
+                        <p>Register and log in with bcrypt-hashed passwords and server-side session management.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-thumbs-up"></i>
+                    <div>
+                        <h4>Helpful Votes</h4>
+                        <p>Upvote or downvote reviews to surface the most useful student feedback.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <div>
+                        <h4>Search & Browse</h4>
+                        <p>Search spots by name, cuisine type, or keyword with real-time suggestions.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-sort"></i>
+                    <div>
+                        <h4>Sort Reviews</h4>
+                        <p>Sort by newest, highest rated, or most helpful to find what you need.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-id-card"></i>
+                    <div>
+                        <h4>User Profiles</h4>
+                        <p>View your review history and update your display name and bio anytime.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NPM Packages Section -->
+        <section class="about-section" style="padding-top: 0;">
+            <h2><i class="fas fa-box" style="color:#059669;margin-right:8px;"></i>NPM Packages Used</h2>
+            <table class="packages-table">
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Version</th>
+                        <th>Purpose</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>express</code></td>
+                        <td>^5.2.1</td>
+                        <td>Web server framework — handles routing and HTTP requests</td>
+                        <td><span class="badge badge-backend">Back-End</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>mongoose</code></td>
+                        <td>^9.2.4</td>
+                        <td>MongoDB ODM — defines schemas and interacts with the database</td>
+                        <td><span class="badge badge-db">Database</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>mongodb</code></td>
+                        <td>^7.1.0</td>
+                        <td>MongoDB driver — underlying driver used by Mongoose</td>
+                        <td><span class="badge badge-db">Database</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>bcrypt</code></td>
+                        <td>^5.1.1</td>
+                        <td>Password hashing — securely hashes and compares user passwords</td>
+                        <td><span class="badge badge-backend">Back-End</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>express-session</code></td>
+                        <td>^1.18.1</td>
+                        <td>Session management — keeps users logged in using server-side sessions</td>
+                        <td><span class="badge badge-backend">Back-End</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>connect-mongo</code></td>
+                        <td>^5.1.0</td>
+                        <td>MongoDB session store — persists sessions in MongoDB instead of memory</td>
+                        <td><span class="badge badge-db">Database</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>dotenv</code></td>
+                        <td>^17.3.1</td>
+                        <td>Environment variables — loads <code>.env</code> config (MongoDB URI, secrets)</td>
+                        <td><span class="badge badge-backend">Back-End</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Third-Party Libraries Section -->
+        <section class="about-section" style="padding-top: 0;">
+            <h2><i class="fas fa-globe" style="color:#059669;margin-right:8px;"></i>Third-Party Libraries &amp; Services</h2>
+            <table class="packages-table">
+                <thead>
+                    <tr>
+                        <th>Library / Service</th>
+                        <th>Version</th>
+                        <th>Purpose</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Font Awesome</code></td>
+                        <td>6.0.0</td>
+                        <td>Icon library — provides all icons used throughout the UI (stars, map pins, etc.)</td>
+                        <td><span class="badge badge-frontend">Front-End</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>Google Fonts — Inter</code></td>
+                        <td>—</td>
+                        <td>Typography — the Inter typeface used across all pages</td>
+                        <td><span class="badge badge-frontend">Front-End</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>ui-avatars.com</code></td>
+                        <td>—</td>
+                        <td>Avatar generation — creates initials-based profile avatars for users</td>
+                        <td><span class="badge badge-frontend">Front-End</span></td>
+                    </tr>
+                    <tr>
+                        <td><code>MongoDB Atlas</code></td>
+                        <td>—</td>
+                        <td>Cloud database — hosts the production MongoDB database</td>
+                        <td><span class="badge badge-db">Database</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Architecture Note -->
+        <section class="about-section" style="padding-top: 0; padding-bottom: 60px;">
+            <h2><i class="fas fa-diagram-project" style="color:#059669;margin-right:8px;"></i>Architecture</h2>
+            <p style="color:#374151;line-height:1.7;">
+                CampusTaste follows the <strong>Model–View–Controller (MVC)</strong> pattern.
+                <strong>Models</strong> are defined as Mongoose schemas (<code>User</code>, <code>Post</code>, <code>Reply</code>) in <code>model/models.js</code>.
+                <strong>Views</strong> are the HTML files (<code>index.html</code>, <code>spot.html</code>, <code>profile.html</code>, etc.) served statically by Express.
+                <strong>Controllers</strong> are the Express route handlers in <code>controller/controllers.js</code> that process requests, apply validation, interact with the database, and return responses to the views.
+                Front-end interactivity and data fetching are handled by <code>scripts.js</code> via the Fetch API.
+            </p>
+        </section>
+
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

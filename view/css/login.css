@@ -1,0 +1,125 @@
+/* Auth Page Styling */
+.auth-body {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    min-height: 100vh;
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.auth-tabs {
+    display: flex;
+    background: #f3f4f6;
+    padding: 5px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    font-weight: 700;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #059669;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.auth-form h2 {
+    font-size: 1.8rem;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    color: #6b7280;
+}
+
+.forgot-pass {
+    color: #059669;
+    font-weight: 600;
+}
+
+.btn-auth {
+    width: 100%;
+    background: #059669;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-auth:hover {
+    background: #047857;
+}
+
+.hidden {
+    display: none;
+}
+
+.back-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6b7280;
+}
